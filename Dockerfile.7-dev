@@ -19,4 +19,13 @@ RUN apt update && apt upgrade -y && apt install -y locales libicu-dev unzip && \
 	apt purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $BUILD_LIBS && \
 	apt -y autoremove && \
     apt clean && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
+# enable debug options
+	if [ $ENV = "development" ] ; then \
+		pecl install xdebug; \
+		docker-php-ext-enable xdebug; \
+		echo "error_reporting = E_ALL" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini; \
+		echo "display_startup_errors = On" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini; \
+		echo "display_errors = On" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini; \
+		echo "xdebug.remote_enable=1" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini; \
+	fi ;
