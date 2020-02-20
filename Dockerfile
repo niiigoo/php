@@ -6,13 +6,18 @@ ARG LOCALE=en_US
 ARG ENV=production
 
 # install dependencies
-RUN apt update && apt upgrade -y && apt install -y locales libicu-dev unzip zlib1g-dev libzmq-dev && \
+RUN apt update && apt upgrade -y && apt install -y git locales libicu-dev unzip zlib1g-dev libzmq3-dev && \
 	docker-php-ext-configure intl && \
 	docker-php-ext-install intl && \
 	docker-php-ext-install mysqli && \
 	docker-php-ext-install pdo_mysql && \
-	pecl install zmq-beta && \
-	docker-php-ext-install zip && \
+	git clone git://github.com/mkoppanen/php-zmq.git && \
+	cd php-zmq && \
+	phpize && \
+	./configure && \
+	make install && \
+	cd .. && \
+	rm -fr php-zmq && \
 	docker-php-ext-enable zmq && \
 # generate locale
 	sed -i 's/^# *\($LOCALE.UTF-8\)/\1/' /etc/locale.gen && \
