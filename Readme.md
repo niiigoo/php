@@ -3,6 +3,7 @@ This dockerfile will add following php extensions to the base image:
 * mysqli
 * pdo_mysql
 * zmq
+* zip
 
 Also, the given locale will be generated
 

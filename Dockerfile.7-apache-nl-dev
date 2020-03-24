@@ -6,11 +6,12 @@ ARG LOCALE=nl_NL
 ARG ENV=development
 
 # install dependencies
-RUN apt update && apt upgrade -y && apt install -y git locales libicu-dev unzip zlib1g-dev libzmq3-dev && \
+RUN apt update && apt upgrade -y && apt install -y git locales libicu-dev unzip zlib1g-dev libzmq3-dev libzip-dev && \
 	docker-php-ext-configure intl && \
 	docker-php-ext-install intl && \
 	docker-php-ext-install mysqli && \
 	docker-php-ext-install pdo_mysql && \
+	docker-php-ext-install zip && \
 	git clone git://github.com/mkoppanen/php-zmq.git && \
 	cd php-zmq && \
 	phpize && \
