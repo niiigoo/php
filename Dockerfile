@@ -14,6 +14,7 @@ RUN apt update && apt upgrade -y && \
 	docker-php-ext-install pdo_mysql && \
 	docker-php-ext-install zip && \
 	docker-php-ext-install gd && \
+	docker-php-ext-configure gd && \
 	git clone git://github.com/mkoppanen/php-zmq.git && \
 	cd php-zmq && \
 	phpize && \
