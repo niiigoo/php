@@ -15,6 +15,8 @@ RUN apt update && apt upgrade -y && \
 	docker-php-ext-install zip && \
 	docker-php-ext-install gd && \
 	docker-php-ext-configure gd && \
+	pecl install grpc && \
+	pecl install protobuf && \
 	git clone git://github.com/mkoppanen/php-zmq.git && \
 	cd php-zmq && \
 	phpize && \
@@ -23,6 +25,8 @@ RUN apt update && apt upgrade -y && \
 	cd .. && \
 	rm -fr php-zmq && \
 	docker-php-ext-enable zmq && \
+	docker-php-ext-enable grpc && \
+	docker-php-ext-enable protobuf && \
 # generate locale
 	sed -i 's/^# *\($LOCALE.UTF-8\)/\1/' /etc/locale.gen && \
 	locale-gen && \

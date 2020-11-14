@@ -5,6 +5,7 @@ This dockerfile will add following php extensions to the base image:
 * zmq
 * zip
 * gd
+* grpc
 
 Also, the given locale will be generated
 
